@@ -134,9 +134,9 @@ function moveTilesLeft()
     {
         for(var c=0; c<grid[r].length; c++)
         {
-            if(c !== 0  && grid[r][c] !== "x" && grid[r][c+1] === "x")
+            if(c !== 0  && grid[r][c] !== "x" && grid[r][c-1] === "x")
             {
-                grid[r][c+1] = grid[r][c];
+                grid[r][c-1] = grid[r][c];
                 grid[r][c] = "x";
             }
 
