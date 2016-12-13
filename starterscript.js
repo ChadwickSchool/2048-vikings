@@ -109,11 +109,11 @@ function moveTilesUp()
 function moveTilesDown()
 {
 
-    for(var r=3; r > 0; r--)
+    for(var r=3; r >= 0; r--)
     {
         for(var c=0; c < grid[r].length; c++)
         {
-            if(r !== 0  && grid[r][c] !== "x" && grid[r+1][c] === "x")
+            if(r !== 3  && grid[r][c] !== "x" && grid[r+1][c] === "x")
             {
                 grid[r+1][c] = grid[r][c];
                 grid[r][c] = "x";
@@ -124,6 +124,7 @@ function moveTilesDown()
     }
 
 }
+
 //write combine tiles function
 //write movetilesdown, movetilesright/left functions
 //for extra credit:
