@@ -127,14 +127,14 @@ function moveTilesDown()
 
 }
 
-function moveTilesRight()
+function moveTilesLeft()
 {
 
     for(var r=0; r < grid.length; r++)
     {
         for(var c=0; c<grid[r].length; c++)
         {
-            if(c !== 3  && grid[r][c] !== "x" && grid[r][c+1] === "x")
+            if(c !== 0  && grid[r][c] !== "x" && grid[r][c+1] === "x")
             {
                 grid[r][c+1] = grid[r][c];
                 grid[r][c] = "x";
@@ -146,16 +146,16 @@ function moveTilesRight()
 
 }
 
-function moveTilesLeft()
+function moveTilesRight()
 {
 
     for(var r=0; r < grid.length; r++)
     {
-        for(var c=3; c > 0; c--)
+        for(var c=3; c >= 0; c--)
         {
-            if(c !== 0  && grid[r][c] !== "x" && grid[r][c-1] === "x")
+            if(c !== 3  && grid[r][c] !== "x" && grid[r][c+1] === "x")
             {
-                grid[r][c-1] = grid[r][c];
+                grid[r][c+1] = grid[r][c];
                 grid[r][c] = "x";
             }
 
