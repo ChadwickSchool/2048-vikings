@@ -74,7 +74,6 @@ document.onkeydown = function(e) {
 				{
 					moveTilesUp();
 				}
-				addTile();
 
     }
     //double equals sign will convert it for us
@@ -85,7 +84,6 @@ document.onkeydown = function(e) {
 				{
 					moveTilesDown();
 				}
-				addTile();
 
     }
     else if (e.keyCode == LEFT_ARROW) {
@@ -95,7 +93,6 @@ document.onkeydown = function(e) {
 			 {
 				 moveTilesLeft();
 			 }
-			 addTile();
     }
     else if (e.keyCode == RIGHT_ARROW) {
        // right arrow
@@ -104,9 +101,8 @@ document.onkeydown = function(e) {
 			 {
 				 moveTilesRight();
 			 }
-			 addTile();
     }
-
+		addTile();
     printBoard(); //have to recall print board to get the board to update
 };
 
@@ -186,13 +182,19 @@ function moveTilesRight()
 
 }
 
-function combineTilesUp()
+function combineUp()
 {
-	if(parseInt(grid[x][y]) === parseInt(grid[x][y-1]))
+	for(var r=0; r < grid.length; r++)
 	{
-		grid[x][y-1] = parseInt(grid[x][y]) + parseInt(grid[x][y-1]);
-		//grid[x][y] = "x";
-		//grid[x][y-1] = grid[x][y];
+		for(var c=0; c<grid[r].length; c++)
+		{
+			if(parseInt(grid[r][c]) ===  parseInt(grid[r-1][c]))
+			{
+				grid[r-1][c] = parseInt(grid[r-1][c]) + parseInt(grid[r][c]);
+				grid[r][c] = "x";
+				grid[r-1][c] = grid[r][c];
+			}
+		}
 	}
 }
 
