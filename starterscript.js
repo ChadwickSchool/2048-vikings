@@ -1,8 +1,8 @@
 var grid = [];
-var UP_ARROW = '38';
-var DOWN_ARROW = '40';
-var LEFT_ARROW = '37';
-var RIGHT_ARROW = '39';
+var UP_ARROW = 38;
+var DOWN_ARROW = 40;
+var LEFT_ARROW = 37;
+var RIGHT_ARROW = 39;
 
 
 //As soon as webpage loads run these two functions
@@ -31,6 +31,11 @@ function addTile() {
 	//place a 2 on a random spot in the board
 	var x = Math.round(Math.random()*3); //get the function to keep running WHILE (hint hint) there's no 2 at that position
 	var y = Math.round(Math.random()*3);
+	while(grid[x][y] !== "x")
+	{
+		x = Math.round(Math.random()*3); //get the function to keep running WHILE (hint hint) there's no 2 at that position
+		y = Math.round(Math.random()*3);
+	}
 	grid[x][y] = "2";
 }
 
@@ -65,25 +70,41 @@ document.onkeydown = function(e) {
     //to use triple equals sign
     if (e.keyCode == UP_ARROW) {
         // up arrow
-        moveTilesUp();
+				for(var i=0; i < grid.length; i++)
+				{
+					moveTilesUp();
+				}
+				addTile();
 
     }
     //double equals sign will convert it for us
     else if (e.keyCode == DOWN_ARROW) {
         // down arrow
         console.log("Pressed down");
-				moveTilesDown();
+				for(var i=0; i < grid.length; i++)
+				{
+					moveTilesDown();
+				}
+				addTile();
 
     }
     else if (e.keyCode == LEFT_ARROW) {
        // left arrow
        console.log("Pressed left");
-			 moveTilesLeft();
+			 for(var i=0; i < grid.length; i++)
+			 {
+				 moveTilesLeft();
+			 }
+			 addTile();
     }
     else if (e.keyCode == RIGHT_ARROW) {
        // right arrow
        console.log("Pressed right");
-			 moveTilesRight();
+			 for(var i=0; i < grid.length; i++)
+			 {
+				 moveTilesRight();
+			 }
+			 addTile();
     }
 
     printBoard(); //have to recall print board to get the board to update
@@ -165,8 +186,17 @@ function moveTilesRight()
 
 }
 
+function combineTilesUp()
+{
+	if(parseInt(grid[x][y]) === parseInt(grid[x][y-1]))
+	{
+		grid[x][y-1] = parseInt(grid[x][y]) + parseInt(grid[x][y-1]);
+		//grid[x][y] = "x";
+		//grid[x][y-1] = grid[x][y];
+	}
+}
+
 //write combine tiles function
-//write movetilesdown, movetilesright/left functions
 //for extra credit:
 	//make a high score function
 	//adjust colors
