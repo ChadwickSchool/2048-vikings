@@ -75,6 +75,7 @@ document.onkeydown = function(e) {
 				  combineUp();
 					moveTilesUp();
 				}
+				addTile();
 
     }
     //double equals sign will convert it for us
@@ -86,6 +87,7 @@ document.onkeydown = function(e) {
 					moveTilesDown();
 					combineDown();
 				}
+				addTile();
 
     }
     else if (e.keyCode == LEFT_ARROW) {
@@ -96,6 +98,7 @@ document.onkeydown = function(e) {
 				 moveTilesLeft();
 				 combineLeft();
 			}
+			addTile();
     }
     else if (e.keyCode == RIGHT_ARROW) {
        // right arrow
@@ -105,9 +108,9 @@ document.onkeydown = function(e) {
 				moveTilesRight();
 				combineRight();
 			}
+			addTile();
 
     }
-		addTile();
     printBoard(); //have to recall print board to get the board to update
 };
 
