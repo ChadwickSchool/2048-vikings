@@ -69,38 +69,39 @@ document.onkeydown = function(e) {
     //keyCode is actually a character value which we convert to a String
     //to use triple equals sign
     if (e.keyCode == UP_ARROW) {
-        // up arrow
-				for(var i=0; i < grid.length; i++)
-				{
+        // // up arrow
+				// for(var i=0; i < grid.length; i++)
+				// {
+				  combineUp();
 					moveTilesUp();
-				}
+				//}
 
     }
     //double equals sign will convert it for us
     else if (e.keyCode == DOWN_ARROW) {
         // down arrow
-        console.log("Pressed down");
-				for(var i=0; i < grid.length; i++)
-				{
+        // console.log("Pressed down");
+				// for(var i=0; i < grid.length; i++)
+				// {
 					moveTilesDown();
-				}
+				//}
 
     }
     else if (e.keyCode == LEFT_ARROW) {
        // left arrow
-       console.log("Pressed left");
-			 for(var i=0; i < grid.length; i++)
-			 {
+      //  console.log("Pressed left");
+			//  for(var i=0; i < grid.length; i++)
+			//  {
 				 moveTilesLeft();
-			 }
+			 //}
     }
     else if (e.keyCode == RIGHT_ARROW) {
        // right arrow
        console.log("Pressed right");
-			 for(var i=0; i < grid.length; i++)
-			 {
+			//  for(var i=0; i < grid.length; i++)
+			//  {
 				 moveTilesRight();
-			 }
+			 //}
     }
 		addTile();
     printBoard(); //have to recall print board to get the board to update
@@ -186,19 +187,20 @@ function combineUp()
 {
 	for(var r=0; r < grid.length; r++)
 	{
-		for(var c=0; c<grid[r].length; c++)
-		{
-			if(parseInt(grid[r][c]) ===  parseInt(grid[r-1][c]))
+			for(var c=0; c<grid[r].length; c++)
 			{
-				grid[r-1][c] = parseInt(grid[r-1][c]) + parseInt(grid[r][c]);
-				grid[r][c] = "x";
-				grid[r-1][c] = grid[r][c];
+				if(r !== 0  && grid[r][c] !== "x" && grid[r][c] === grid[r-1][c])
+				{
+					var tileTotal = parseInt(grid[r-1][c]) + parseInt(grid[r][c]);
+					grid[r-1][c] = tileTotal + "";
+					grid[r][c] = "x";
+
+				}
 			}
-		}
 	}
 }
 
-//write combine tiles function
+//write combine tiles functions
 //for extra credit:
 	//make a high score function
 	//adjust colors
