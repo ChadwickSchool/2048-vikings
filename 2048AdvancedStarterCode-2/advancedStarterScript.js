@@ -3,6 +3,10 @@
 //var board = [[2,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
 
 var board = [];
+var UP_ARROW = 38;
+var DOWN_ARROW = 40;
+var LEFT_ARROW = 37;
+var RIGHT_ARROW = 39;
 
 
 
@@ -23,8 +27,8 @@ function setUpBoard(){
 		}
 		board.push(innergrid);
 	}
-
 	addTile();
+	printBoard();
 
 }
 
@@ -49,6 +53,10 @@ function printBoard(){
 			//if the tile is not zero, put it on the board
 			if(board[i][j] !== 0){
 				document.getElementById(boardID).innerHTML = board[i][j];
+			}
+			else //it's a zero
+			{
+				document.getElementById(boardID).innerHTML = "";
 			}
 			//Change the different number tiles to different colors
 			switch(board[i][j]){
@@ -86,12 +94,206 @@ function printBoard(){
 					document.getElementById(boardID).style.background = "#ccc0b3";
 					break;
 				default:
+					document.getElementById(boardID).style.background = "rgba(238, 228, 218, 0.35)";
 					//similar to the else statement. If none of the other cases execute, this statement will execute
 			}
 		}
 	}
 }
 //show students an ascii conversion tool.
-document.onkeydown = function(e){
-	console.log(e.keyCode);
+document.onkeydown = function(e) {
+
+    //makes it work in internet explorer which uses window.event and not e
+    e = e || window.event;
+
+    //keyCode is actually a character value which we convert to a String
+    //to use triple equals sign
+    if (e.keyCode == UP_ARROW) {
+        // // up arrow
+				combineUp();
+				for(var i=0; i < board.length; i++)
+				{
+					moveTilesUp();
+				}
+				addTile();
+
+    }
+    //double equals sign will convert it for us
+    else if (e.keyCode == DOWN_ARROW) {
+        // down arrow
+        // console.log("Pressed down");
+				combineDown();
+				for(var i=0; i < board.length; i++)
+				{
+					moveTilesDown();
+				}
+				addTile();
+
+    }
+    else if (e.keyCode == LEFT_ARROW) {
+       // left arrow
+      //  console.log("Pressed left");
+			combineLeft();
+			for(var i=0; i < board.length; i++)
+			{
+				 moveTilesLeft();
+			}
+			addTile();
+    }
+    else if (e.keyCode == RIGHT_ARROW) {
+       // right arrow
+       console.log("Pressed right");
+			 combineRight();
+			for(var i=0; i < board.length; i++)
+			{
+				moveTilesRight();
+			}
+			addTile();
+
+    }
+    printBoard(); //have to recall print board to get the board to update
 };
+
+function moveTilesUp()
+{
+
+    for(var r=0; r < board.length; r++)
+    {
+        for(var c=0; c<board[r].length; c++)
+        {
+            if(r !== 0  && board[r][c] !== 0 && board[r-1][c] === 0)
+            {
+                board[r-1][c] = board[r][c];
+                board[r][c] = 0;
+            }
+
+        }
+
+    }
+
+}
+
+function moveTilesDown()
+{
+
+    for(var r=3; r >= 0; r--)
+    {
+        for(var c=0; c < board[r].length; c++)
+        {
+            if(r !== 3 && board[r][c] !== 0 && board[r+1][c] === 0) //replace with while loop
+            {
+                board[r+1][c] = board[r][c];
+                board[r][c] = 0;
+            }
+
+        }
+
+    }
+
+}
+
+function moveTilesLeft()
+{
+
+    for(var r=0; r < board.length; r++)
+    {
+        for(var c=0; c<board[r].length; c++)
+        {
+            if(c !== 0  && board[r][c] !== 0 && board[r][c-1] === 0)
+            {
+                board[r][c-1] = board[r][c];
+                board[r][c] = 0;
+            }
+
+        }
+
+    }
+
+}
+
+function moveTilesRight()
+{
+
+    for(var r=0; r < board.length; r++)
+    {
+        for(var c=3; c >= 0; c--)
+        {
+            if(c !== 3  && board[r][c] !== 0 && board[r][c+1] === 0)
+            {
+                board[r][c+1] = board[r][c];
+                board[r][c] = 0;
+            }
+
+        }
+
+    }
+
+}
+
+function combineUp()
+{
+	for(var r=0; r < board.length; r++)
+	{
+			for(var c=0; c<board[r].length; c++)
+			{
+				if(r !== 0  && board[r][c] !== 0 && board[r][c] === board[r-1][c])
+				{
+					var tileTotal = parseInt(board[r-1][c]) + parseInt(board[r][c]);
+					board[r-1][c] = tileTotal;
+					board[r][c] = 0;
+
+				}
+			}
+	}
+}
+
+function combineDown()
+{
+	for(var r=3; r >= 0; r--)
+	{
+			for(var c=0; c<board[r].length; c++)
+			{
+				if(r !== 3  && board[r][c] !== 0 && board[r][c] === board[r+1][c])
+				{
+					var tileTotal = parseInt(board[r+1][c]) + parseInt(board[r][c]);
+					board[r+1][c] = tileTotal;
+					board[r][c] = 0;
+
+				}
+			}
+	}
+}
+
+function combineLeft()
+{
+	for(var r=0; r < board.length; r++)
+	{
+			for(var c=0; c<board[r].length; c++)
+			{
+				if(c !== 0  && board[r][c] !== 0 && board[r][c] === board[r][c-1])
+				{
+					var tileTotal = parseInt(board[r][c-1]) + parseInt(board[r][c]);
+					board[r][c-1] = tileTotal;
+					board[r][c] = 0;
+
+				}
+			}
+	}
+}
+
+function combineRight()
+{
+	for(var r=0; r < board.length; r++)
+	{
+			for(var c=3; c >= 0; c--)
+			{
+				if(c !== 3  && board[r][c] !== 0 && board[r][c] === board[r][c+1])
+				{
+					var tileTotal = parseInt(board[r][c+1]) + parseInt(board[r][c]);
+					board[r][c+1] = tileTotal;
+					board[r][c] = 0;
+
+				}
+			}
+	}
+}
