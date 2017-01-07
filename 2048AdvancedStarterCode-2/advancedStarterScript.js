@@ -1,12 +1,15 @@
 
 //2D array initialized with sample values. To get a blank board initialize all the values to zero
-//var board = [[2,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+//var board = [[2048,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
 
 var board = [];
 var UP_ARROW = 38;
 var DOWN_ARROW = 40;
 var LEFT_ARROW = 37;
 var RIGHT_ARROW = 39;
+var R = '82';
+var score = 0;
+var gameStartAmount = 2;
 
 
 
@@ -27,7 +30,10 @@ function setUpBoard(){
 		}
 		board.push(innergrid);
 	}
-	addTile();
+	for(var i = 0; i < gameStartAmount; i++)
+	{
+		addTile();
+	}
 	printBoard();
 
 }
@@ -46,6 +52,8 @@ function addTile() {
 }
 
 function printBoard(){
+	document.getElementById("score").innerHTML = "Score: " + score + "";
+	document.getElementById("score").style.color = "";
 
 	for(var i = 0; i < 4; i++){
 		for(var j = 0; j < 4; j++){
@@ -61,37 +69,37 @@ function printBoard(){
 			//Change the different number tiles to different colors
 			switch(board[i][j]){
 				case 2:
-					document.getElementById(boardID).style.background = "#f0e5da";
+					document.getElementById(boardID).style.background = "#ff0400";
 					break;//similar to an else if. Makes sure none of the other cases executes if this one does
 				case 4:
-					document.getElementById(boardID).style.background = "#ede2c8";
+					document.getElementById(boardID).style.background = "#ff9000";
 					break;
 				case 8:
-					document.getElementById(boardID).style.background = "#feb578";
+					document.getElementById(boardID).style.background = "#faff00";
 					break;
 				case 16:
-					document.getElementById(boardID).style.background = "#ff9962";
+					document.getElementById(boardID).style.background = "#6aff00";
 					break;
 				case 32:
-					document.getElementById(boardID).style.background = "#ff8060";
+					document.getElementById(boardID).style.background = "#00ffcb";
 					break;
 				case 64:
-					document.getElementById(boardID).style.background = "#ff613c";
+					document.getElementById(boardID).style.background = "#00c3ff";
 					break;
 				case 128:
-					document.getElementById(boardID).style.background = "#efd26d";
+					document.getElementById(boardID).style.background = "#0021ff";
 					break;
 				case 256:
-					document.getElementById(boardID).style.background = "#efd15c";
+					document.getElementById(boardID).style.background = "#a326d6";
 					break;
 				case 512:
-					document.getElementById(boardID).style.background = "#efcd4a";
+					document.getElementById(boardID).style.background = "#ff00d8";
 					break;
 				case 1024:
-					document.getElementById(boardID).style.background = "#f0ca36";
+					document.getElementById(boardID).style.background = "#a3005f";
 					break;
 				case 2048:
-					document.getElementById(boardID).style.background = "#ccc0b3";
+					document.getElementById(boardID).style.background = "#f9d3ca";
 					break;
 				default:
 					document.getElementById(boardID).style.background = "rgba(238, 228, 218, 0.35)";
@@ -151,6 +159,14 @@ document.onkeydown = function(e) {
 			addTile();
 
     }
+		else if (e.keyCode == R) {
+			resetGame();
+			for(var i = 0; i < gameStartAmount; i++)
+			{
+				addTile();
+			}
+			score = 0;
+		}
     printBoard(); //have to recall print board to get the board to update
 };
 
@@ -239,6 +255,7 @@ function combineUp()
 				if(r !== 0  && board[r][c] !== 0 && board[r][c] === board[r-1][c])
 				{
 					var tileTotal = parseInt(board[r-1][c]) + parseInt(board[r][c]);
+					updateScore(board[r-1][c]);
 					board[r-1][c] = tileTotal;
 					board[r][c] = 0;
 
@@ -256,6 +273,7 @@ function combineDown()
 				if(r !== 3  && board[r][c] !== 0 && board[r][c] === board[r+1][c])
 				{
 					var tileTotal = parseInt(board[r+1][c]) + parseInt(board[r][c]);
+					updateScore(board[r+1][c]);
 					board[r+1][c] = tileTotal;
 					board[r][c] = 0;
 
@@ -273,6 +291,7 @@ function combineLeft()
 				if(c !== 0  && board[r][c] !== 0 && board[r][c] === board[r][c-1])
 				{
 					var tileTotal = parseInt(board[r][c-1]) + parseInt(board[r][c]);
+					updateScore(board[r][c-1]);
 					board[r][c-1] = tileTotal;
 					board[r][c] = 0;
 
@@ -290,10 +309,30 @@ function combineRight()
 				if(c !== 3  && board[r][c] !== 0 && board[r][c] === board[r][c+1])
 				{
 					var tileTotal = parseInt(board[r][c+1]) + parseInt(board[r][c]);
+					updateScore(board[r][c+1]);
 					board[r][c+1] = tileTotal;
 					board[r][c] = 0;
 
 				}
 			}
+	}
+}
+
+function updateScore(newScore) {
+	score+=newScore
+}
+
+function resetGame(){
+	{
+
+	    for(var r=0; r < board.length; r++)
+	    {
+	        for(var c=0; c<board[r].length; c++)
+	        {
+						board[r][c] = 0;
+	        }
+
+	    }
+
 	}
 }
