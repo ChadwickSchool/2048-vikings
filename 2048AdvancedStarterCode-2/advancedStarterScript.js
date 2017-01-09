@@ -10,6 +10,7 @@ var RIGHT_ARROW = 39;
 var R = '82';
 var score = 0;
 var gameStartAmount = 2;
+var hScore = 0;
 
 
 
@@ -52,8 +53,10 @@ function addTile() {
 }
 
 function printBoard(){
-	document.getElementById("score").innerHTML = "Score: " + score + "";
+	document.getElementById("score").innerHTML = "Score: " + score + "   " + "High Score " + hScore + "";
 	document.getElementById("score").style.color = "";
+
+	hScore == score;
 
 	for(var i = 0; i < 4; i++){
 		for(var j = 0; j < 4; j++){
@@ -160,6 +163,7 @@ document.onkeydown = function(e) {
 
     }
 		else if (e.keyCode == R) {
+			hScore == score;
 			resetGame();
 			for(var i = 0; i < gameStartAmount; i++)
 			{
@@ -256,6 +260,7 @@ function combineUp()
 				{
 					var tileTotal = parseInt(board[r-1][c]) + parseInt(board[r][c]);
 					updateScore(board[r-1][c]);
+					updateHigh(board[r-1][c]);
 					board[r-1][c] = tileTotal;
 					board[r][c] = 0;
 
@@ -274,6 +279,7 @@ function combineDown()
 				{
 					var tileTotal = parseInt(board[r+1][c]) + parseInt(board[r][c]);
 					updateScore(board[r+1][c]);
+					updateHigh(board[r+1][c]);
 					board[r+1][c] = tileTotal;
 					board[r][c] = 0;
 
@@ -292,6 +298,7 @@ function combineLeft()
 				{
 					var tileTotal = parseInt(board[r][c-1]) + parseInt(board[r][c]);
 					updateScore(board[r][c-1]);
+					updateHigh(board[r][c-1]);
 					board[r][c-1] = tileTotal;
 					board[r][c] = 0;
 
@@ -310,6 +317,7 @@ function combineRight()
 				{
 					var tileTotal = parseInt(board[r][c+1]) + parseInt(board[r][c]);
 					updateScore(board[r][c+1]);
+					updateHigh(board[r][c+1]);
 					board[r][c+1] = tileTotal;
 					board[r][c] = 0;
 
@@ -334,5 +342,12 @@ function resetGame(){
 
 	    }
 
+	}
+}
+
+function updateHigh(theScore) {
+	if(score > hScore)
+	{
+		hScore+=theScore;
 	}
 }
