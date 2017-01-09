@@ -46,7 +46,7 @@ html, body {
 	  position: relative;
 	  padding: 15px;
 	  cursor: default;
-	  background: #bbada0;
+	  background: #ada095;
 	  border-radius: 6px;
 	  width: 500px;
 	  height: 500px;
@@ -58,7 +58,7 @@ html, body {
 h1 {
     font-size: 60;
     text-align: center;
-    height: 25px;
+    height: 28px;
     color: #f0ca36;
     font-weight: bold;
 }
@@ -74,7 +74,7 @@ h2 {
 h3 {
   font-size: 20;
   text-align: center;
-  height: 10px;
+  height: 9px;
   color: #a89e8b;
   font-weight: bold;
 }

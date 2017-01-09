@@ -319,7 +319,7 @@ function combineRight()
 }
 
 function updateScore(newScore) {
-	score+=newScore
+	score+=newScore;
 }
 
 function resetGame(){
